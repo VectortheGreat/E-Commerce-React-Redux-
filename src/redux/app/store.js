@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { getCountry } from "../countries/countrySlice";
+import categorySlice from "../categorySlice";
+import productSlice from "../productSlice";
 
 export default configureStore({
   reducer: {
-    country: getCountry,
+    categories: categorySlice,
+    products: productSlice,
   },
 });
