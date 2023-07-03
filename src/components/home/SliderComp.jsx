@@ -1,58 +1,75 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/productSlice";
+import { useNavigate } from "react-router-dom";
 
 const SliderComp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products } = useSelector((state) => state.products);
+  let randomSliderNumbers = [];
+  for (let i = 0; i < 5; i++) {
+    let randomNumber = Math.floor(Math.random() * products.length);
+    while (randomSliderNumbers.includes(randomNumber)) {
+      randomNumber = Math.floor(Math.random() * products.length);
+    }
+    randomSliderNumbers.push(randomNumber);
+  }
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+  const slides = randomSliderNumbers.map((number) => {
+    const product = products[number];
+    if (product) {
+      return {
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        imageUrl: product.image,
+      };
+    } else {
+      return {
+        id: "",
+        title: "",
+        description: "",
+        imageUrl: "",
+      };
+    }
+  });
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
+    arrows: true,
   };
+
   return (
-    <div>
-      {" "}
+    <div className="slider-container">
       <Slider {...settings}>
-        <div className="d-flex align-items-center">
-          <div>
-            <div>En Kaliteli Ürünler</div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse
-              eaque nam error necessitatibus quos dolore natus a libero culpa
-              nulla vitae hic repellendus, officia, aliquam, enim eos beatae
-              totam ipsa!
-            </div>
+        {slides.map((slide) => (
+          <div className="slide-item d-flex align-items-center " key={slide.id}>
+            {slide.title && (
+              <div className="slide-content d-flex flex-column gap-3">
+                <h3>{slide.title}</h3>
+                <p>{slide.description}</p>
+                <button
+                  onClick={() => navigate(`products/${slide.id}`)}
+                  className="sliderButton mx-auto"
+                >
+                  View
+                </button>
+              </div>
+            )}
+            <img className="sliderImage " src={slide.imageUrl} alt="" />
           </div>
-          <img
-            src="https://img.wattpad.com/62b56f942f1264bc8cff273d98947f89de577d49/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6743704a774a336670376a6277413d3d2d3831333834343131332e313564663632353161313533656638613639343839333032333230322e6a7067?s=fit&w=720&h=720"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
-            src="https://i.pinimg.com/236x/79/e6/6f/79e66ffb59534b9f5479a6201a5ed11f.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
-            src="https://img.joomcdn.net/16f3aaa564048603a7f68dd3c26a3dc86b4743ce_original.jpeg"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
-            src="https://static.ticimax.cloud/30743/uploads/urunresimleri/kategorisizdegaje-yaka-daniela-elbise--c6c4ad.jpg"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
-            src="https://serline.com.tr/cdn-wp-upload_2022-teenger-K%C4%B1z-giyim-setleri-b%C3%BCy%C3%BCk-K%C4%B1zlar-K%C4%B1yafet/1-41057.jpg"
-            alt=""
-          />
-        </div>
+        ))}
       </Slider>
     </div>
   );

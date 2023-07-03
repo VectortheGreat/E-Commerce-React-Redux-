@@ -17,14 +17,14 @@ const NavbarRight = () => {
 
   return (
     <div className="d-flex align-items-center gap-3">
-      <div className="d-flex align-items-center p-3 border">
+      <div className="d-flex align-items-center p-3 border gap-3">
         <input type="text" placeholder="Search"></input>
         <BiSearch size={28}></BiSearch>
       </div>
       <AiOutlineHeart size={28}></AiOutlineHeart>
       <div
         onClick={() => navigate("cart")}
-        className="position-relative addPointerCursor"
+        className="position-relative addPointerCursor px-3"
       >
         <div
           className="position-absolute bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"

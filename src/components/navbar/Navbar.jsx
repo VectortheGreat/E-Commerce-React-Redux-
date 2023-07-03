@@ -4,7 +4,7 @@ import NavbarRight from "./navbarItem/NavbarRight";
 
 const Navbar = () => {
   return (
-    <div className="d-flex justify-content-between align-items-center my-5">
+    <div className="d-flex justify-content-between align-items-center my-5 border rounded">
       <NavbarLeft></NavbarLeft> <NavbarRight></NavbarRight>
     </div>
   );

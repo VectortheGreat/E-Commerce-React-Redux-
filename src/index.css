@@ -29,3 +29,11 @@ code {
 .addPointerCursor{
   cursor: pointer;
 }
+.sliderImage{
+  width: 400px;
+  height: 400px;
+}
+.sliderButton{
+  width: 200px;
+  height: 50px;
+}
