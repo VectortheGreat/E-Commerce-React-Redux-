@@ -10,24 +10,31 @@ const SliderComp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products } = useSelector((state) => state.products);
-  let randomSliderNumbers = [];
-  for (let i = 0; i < 5; i++) {
-    let randomNumber = Math.floor(Math.random() * products.length);
-    while (randomSliderNumbers.includes(randomNumber)) {
-      randomNumber = Math.floor(Math.random() * products.length);
-    }
-    randomSliderNumbers.push(randomNumber);
-  }
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  const generateRandomSliderNumbers = () => {
+    let randomSliderNumbers = [];
+    for (let i = 0; i < 5; i++) {
+      let randomNumber = Math.floor(Math.random() * products.length);
+      if (randomSliderNumbers.includes(randomNumber)) {
+        continue;
+      }
+      randomSliderNumbers.push(randomNumber);
+    }
+    return randomSliderNumbers;
+  };
+
+  const randomSliderNumbers = generateRandomSliderNumbers();
+
   const slides = randomSliderNumbers.map((number) => {
     const product = products[number];
     if (product) {
       return {
         id: product.id,
-        title: product.title,
-        description: product.description,
+        title: product.category,
+        description: product.title,
         imageUrl: product.image,
       };
     } else {
@@ -49,25 +56,30 @@ const SliderComp = () => {
     autoplay: false,
     arrows: true,
   };
-
   return (
     <div className="slider-container">
       <Slider {...settings}>
         {slides.map((slide) => (
-          <div className="slide-item d-flex align-items-center " key={slide.id}>
-            {slide.title && (
-              <div className="slide-content d-flex flex-column gap-3">
-                <h3>{slide.title}</h3>
-                <p>{slide.description}</p>
-                <button
-                  onClick={() => navigate(`products/${slide.id}`)}
-                  className="sliderButton mx-auto"
-                >
-                  View
-                </button>
+          <div className="slide-item" key={slide.id}>
+            <div className="row">
+              <div className="col-md-6 d-flex align-items-center">
+                {slide.title && (
+                  <div className="slide-content">
+                    <h3>TOP QUALITY {slide.title.toUpperCase()} PRODUCTS</h3>
+                    <p>{slide.description}</p>
+                    <button
+                      onClick={() => navigate(`products/${slide.id}`)}
+                      className="sliderButton mx-auto"
+                    >
+                      View
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-            <img className="sliderImage " src={slide.imageUrl} alt="" />
+              <div className="col-md-6">
+                <img className="sliderImage" src={slide.imageUrl} alt="" />
+              </div>
+            </div>
           </div>
         ))}
       </Slider>
