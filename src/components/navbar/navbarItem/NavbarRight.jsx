@@ -4,11 +4,13 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { SlBasket } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartTotal } from "../../../redux/cardSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavbarRight = () => {
   const dispatch = useDispatch();
-  const { carts } = useSelector((state) => state.carts);
-  console.log("carts: ", carts);
+  const navigate = useNavigate();
+  const { itemCount } = useSelector((state) => state.carts);
+  // console.log("itemler: ", itemCount);
   useEffect(() => {
     dispatch(getCartTotal());
   }, [dispatch]);
@@ -20,7 +22,10 @@ const NavbarRight = () => {
         <BiSearch size={28}></BiSearch>
       </div>
       <AiOutlineHeart size={28}></AiOutlineHeart>
-      <div className="position-relative">
+      <div
+        onClick={() => navigate("cart")}
+        className="position-relative addPointerCursor"
+      >
         <div
           className="position-absolute bg-danger text-white rounded-circle d-flex align-items-center justify-content-center"
           style={{
@@ -30,7 +35,7 @@ const NavbarRight = () => {
             marginLeft: "1rem",
           }}
         >
-          {carts?.length}
+          {itemCount}
         </div>
         <SlBasket size={28}></SlBasket>
       </div>
