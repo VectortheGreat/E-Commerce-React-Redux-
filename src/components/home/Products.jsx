@@ -12,19 +12,19 @@ const Products = ({ category, sort }) => {
 
   const itemsPerPage = 6;
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading products from ${itemOffset} to ${endOffset}`);
+  // console.log(`Loading products from ${itemOffset} to ${endOffset}`);
   const currentItems = products.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(products.length / itemsPerPage);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % products.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
-  console.log("sort: ", sort);
+  // console.log("sort: ", sort);
 
   useEffect(() => {
     if (category) {

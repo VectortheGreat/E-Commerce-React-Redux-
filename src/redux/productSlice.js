@@ -49,7 +49,7 @@ const productSlice = createSlice({
       })
       .addCase(getDetailProduct.fulfilled, (state, action) => {
         state.productDetailStatus = STATUS.SUCCESS;
-        state.productdetail = action.payload;
+        state.productDetail = action.payload;
       })
       .addCase(getDetailProduct.rejected, (state, action) => {
         state.productDetailStatus = STATUS.FAIL;
