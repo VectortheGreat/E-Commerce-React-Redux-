@@ -2,9 +2,20 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cardSlice";
 import { AiOutlinePlus, AiOutlineMinus, AiOutlineHeart } from "react-icons/ai";
+import { addToFavorites } from "../../redux/favoritesSlice";
 
-const DetailComp = ({ productDetail }) => {
+const DetailComp = ({ productDetail, favorites }) => {
   const dispatch = useDispatch();
+
+  const handleAddToFavorites = () => {
+    if (!favorites) {
+      console.log("Ürün bilgisi bulunamadı.");
+      return;
+    }
+    const favoriteItem = { id: favorites.id, name: favorites.name };
+    dispatch(addToFavorites(favoriteItem));
+  };
+
   const [quantity, setQuantity] = useState(1);
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -94,7 +105,7 @@ const DetailComp = ({ productDetail }) => {
           <button className="btn btn-secondary" onClick={addBasket}>
             Sepete Ekle
           </button>
-          <div className="">
+          <div className="" onClick={handleAddToFavorites}>
             <AiOutlineHeart></AiOutlineHeart>
           </div>
         </div>

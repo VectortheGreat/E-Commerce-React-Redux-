@@ -40,7 +40,7 @@ const Products = ({ category, sort }) => {
         <Loading></Loading>
       ) : (
         <>
-          <div className="d-flex flex-wrap justify-content-between">
+          <div className="d-flex flex-wrap">
             {currentItems
               ?.sort((a, b) =>
                 sort === "inc"
@@ -50,7 +50,9 @@ const Products = ({ category, sort }) => {
                   : null
               )
               .map((product, i) => (
-                <Product key={i} product={product}></Product>
+                <div key={i} className="product-wrapper">
+                  <Product product={product} />
+                </div>
               ))}
           </div>
 

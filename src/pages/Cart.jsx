@@ -7,6 +7,10 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { carts, totalAmount, itemCount } = useSelector((state) => state.carts);
   // console.log("carts: ", carts, totalAmount, itemCount);
+  const clearLocalStorage = () => {
+    localStorage.clear(); // localStorage'i sıfırla
+    console.log(true);
+  };
   useEffect(() => {
     dispatch(getCartTotal());
   }, [dispatch]);
@@ -28,6 +32,7 @@ const Cart = () => {
                 >
                   Clear Cart
                 </button>{" "}
+                <button onClick={clearLocalStorage}>Clear Storage</button>
               </th>
             </tr>
           </thead>

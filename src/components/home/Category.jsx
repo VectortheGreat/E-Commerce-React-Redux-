@@ -1,13 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/categorySlice";
 
 const Category = ({ setCategory }) => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
+  const [activeItem, setActiveItem] = useState(null);
+
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+
+  const handleItemClick = (category) => {
+    setCategory(category);
+    setActiveItem(category);
+  };
 
   return (
     <div className="col-2">
@@ -22,9 +29,11 @@ const Category = ({ setCategory }) => {
 
           return (
             <li
-              onClick={() => setCategory(category)}
+              onClick={() => handleItemClick(category)}
               key={i}
-              className="list-group-item addPointerCursor"
+              className={`list-group-item addPointerCursor ${
+                activeItem === category ? "active" : ""
+              }`}
             >
               {formattedCategory}
             </li>
