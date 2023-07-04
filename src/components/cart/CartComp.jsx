@@ -5,19 +5,35 @@ import { useDispatch } from "react-redux";
 const CartComp = ({ cart }) => {
   const dispatch = useDispatch();
   return (
-    <div className="d-flex align-items-center justify-content-between">
-      <img
-        src={cart?.image}
-        alt=""
-        style={{ width: "200px", height: "200px" }}
-      />
-
-      <div>{cart?.title}</div>
-      <div>{cart?.price}</div>
-      <button onClick={() => dispatch(removeFromCart(cart?.id))}>
-        Remove Product
-      </button>
-    </div>
+    <tr>
+      <th scope="col">
+        <img
+          src={cart?.image}
+          alt=""
+          style={{ width: "100px", height: "100px" }}
+        />
+      </th>
+      <th scope="col">
+        {" "}
+        <div>{cart?.title}</div>
+      </th>
+      <th scope="col">
+        <div>{cart?.quantity}</div>
+      </th>
+      <th scope="col">
+        {" "}
+        <div>{cart?.price}</div>
+      </th>
+      <th scope="col">
+        {" "}
+        <button
+          className="btn btn-danger"
+          onClick={() => dispatch(removeFromCart(cart?.id))}
+        >
+          Remove
+        </button>
+      </th>
+    </tr>
   );
 };
 

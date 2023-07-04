@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartTotal } from "../redux/cardSlice";
+import { clearCart, getCartTotal } from "../redux/cardSlice";
 import CartComp from "../components/cart/CartComp";
 
 const Cart = () => {
@@ -12,17 +12,42 @@ const Cart = () => {
   }, [dispatch]);
   return (
     <div>
-      {carts?.length >= 0 ? (
-        <div>
-          {carts?.map((cart, i) => (
-            <CartComp key={i} cart={cart}></CartComp>
-          ))}
-          <div className="d-flex align-items-center justify-content-end">
-            Total Amount: <span>{totalAmount}</span>
-          </div>
-        </div>
+      {carts?.length > 0 ? (
+        <table className="table table-hover">
+          <thead>
+            <tr className="mb-2">
+              <th scope="col">Image</th>
+              <th scope="col">Product</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Price</th>
+              <th scope="col">
+                {" "}
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={() => dispatch(clearCart(carts))}
+                >
+                  Clear Cart
+                </button>{" "}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {carts?.map((cart, i) => (
+              <CartComp key={i} cart={cart}></CartComp>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total Amount:</td>
+              <td>{totalAmount}</td>
+            </tr>
+          </tfoot>
+        </table>
       ) : (
-        <div>Kartınız Boş</div>
+        <div>Empty Cart</div>
       )}
     </div>
   );

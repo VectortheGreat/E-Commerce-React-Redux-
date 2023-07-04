@@ -48,28 +48,30 @@ const SliderComp = () => {
   });
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     arrows: true,
   };
   return (
     <div className="slider-container">
       <Slider {...settings}>
         {slides.map((slide) => (
-          <div className="slide-item" key={slide.id}>
+          <div className="slide-item slideBackground" key={slide.id}>
             <div className="row">
               <div className="col-md-6 d-flex align-items-center">
                 {slide.title && (
                   <div className="slide-content">
-                    <h3>TOP QUALITY {slide.title.toUpperCase()} PRODUCTS</h3>
-                    <p>{slide.description}</p>
+                    <h3 className="m-3">
+                      TOP QUALITY {slide.title.toUpperCase()} PRODUCTS
+                    </h3>
+                    <p className="m-3">{slide.description}</p>
                     <button
                       onClick={() => navigate(`products/${slide.id}`)}
-                      className="sliderButton mx-auto"
+                      className="sliderButton m-3 btn btn-light"
                     >
                       View
                     </button>
@@ -77,7 +79,11 @@ const SliderComp = () => {
                 )}
               </div>
               <div className="col-md-6">
-                <img className="sliderImage" src={slide.imageUrl} alt="" />
+                <img
+                  className="sliderImage ms-auto"
+                  src={slide.imageUrl}
+                  alt=""
+                />
               </div>
             </div>
           </div>

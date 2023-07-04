@@ -47,15 +47,18 @@ const cardSlice = createSlice({
         state.carts.push(action.payload);
         storeInLocalStorage(state.carts);
       }
+      window.location.reload();
     },
     removeFromCart: (state, action) => {
       const tempCart = state.carts.filter((item) => item.id !== action.payload);
       state.carts = tempCart;
       storeInLocalStorage(state.carts);
+      window.location.reload();
     },
     clearCart: (state, action) => {
       state.carts = [];
       storeInLocalStorage(state.carts);
+      window.location.reload();
     },
     getCartTotal: (state) => {
       state.totalAmount = state.carts.reduce((cartTotal, cartItem) => {

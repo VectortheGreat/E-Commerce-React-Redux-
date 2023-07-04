@@ -35,12 +35,12 @@ const Products = ({ category, sort }) => {
   }, [dispatch, category]);
 
   return (
-    <div>
+    <div className="col-10">
       {productsStatus === "LOADING" ? (
         <Loading></Loading>
       ) : (
         <>
-          <div className="d-flex flex-wrap">
+          <div className="d-flex flex-wrap justify-content-between">
             {currentItems
               ?.sort((a, b) =>
                 sort === "inc"

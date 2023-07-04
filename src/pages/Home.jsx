@@ -13,7 +13,7 @@ const Home = () => {
       <Sorting setSort={setSort}></Sorting>
       <div className="row flex-nowrap">
         <Category className="col-3" setCategory={setCategory}></Category>
-        <Products className="col-7" category={category} sort={sort}></Products>
+        <Products className="col-9" category={category} sort={sort}></Products>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const Product = ({ product }) => {
   return (
     <div
       onClick={() => navigate(`products/${product?.id}`)}
-      className="position-relative p-2 m-2"
+      className="position-relative p-2 m-2 addPointerCursor"
       style={{ width: "200px" }}
     >
       <div className="position-absolute top-0 end-0 rounded-md p-1 bg-secondary text-white font-weight-bold">
